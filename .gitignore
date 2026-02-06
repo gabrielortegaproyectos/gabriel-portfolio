@@ -48,3 +48,6 @@ test-results/
 *.code-workspace
 *.pyc
 __pycache__
+
+# GitHub Copilot instructions (private)
+.github/copilot-instructions.md
