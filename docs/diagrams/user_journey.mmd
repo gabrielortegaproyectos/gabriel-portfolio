@@ -1,0 +1,38 @@
+---
+alt: "Primary user journey through the portfolio website"
+---
+sequenceDiagram
+    accTitle: User Journey Sequence
+    accDescr: Typical user flow from landing to viewing resume and portfolio
+    
+    actor User
+    participant Browser
+    participant Router
+    participant Home
+    participant Resume
+    participant Portfolio
+    participant Data
+    
+    User->>Browser: Visit website
+    Browser->>Router: Load /
+    Router->>Home: Render Home page
+    Home->>Data: Import resumeData.profile
+    Data-->>Home: Profile info
+    Home-->>Browser: Display Hero + Journey
+    Browser-->>User: Show landing page
+    
+    User->>Browser: Click "Check Resume"
+    Browser->>Router: Navigate to /resume
+    Router->>Resume: Render Resume page
+    Resume->>Data: Import resumeData
+    Data-->>Resume: Experience, Education, Skills
+    Resume-->>Browser: Display timeline + cards
+    Browser-->>User: Show resume
+    
+    User->>Browser: Click "View Portfolio"
+    Browser->>Router: Navigate to /portfolio
+    Router->>Portfolio: Render Portfolio page
+    Portfolio-->>Browser: Display project grid
+    Browser-->>User: Show portfolio
+    
+    Note over User,Portfolio: All data is static<br/>No API calls needed

@@ -1,0 +1,41 @@
+---
+alt: "Data flow from static resume.ts to UI components"
+---
+graph LR
+    accTitle: Data Flow Diagram
+    accDescr: Shows how static resume data flows through the application to render UI components
+    
+    subgraph "Data Source"
+        RESUME[resume.ts<br/>Static TypeScript Module]
+    end
+    
+    subgraph "Page Components"
+        HOME[Home.tsx]
+        RESUMEPAGE[Resume.tsx]
+        BLOG[Blog.tsx]
+    end
+    
+    subgraph "Rendering"
+        PROFILE[ProfileCard]
+        EXPCARD[ExperienceCard x10]
+        EDUCARD[EducationCard x3]
+        SKILLCARD[SkillsCard]
+        TIMELINE[CareerTimeline]
+        PUBCARD[PublicationsCard]
+    end
+    
+    RESUME -->|import resumeData| HOME
+    RESUME -->|import resumeData| RESUMEPAGE
+    RESUME -->|import resumeData| BLOG
+    
+    HOME -->|profile| PROFILE
+    RESUMEPAGE -->|experience[]| EXPCARD
+    RESUMEPAGE -->|experience[]| TIMELINE
+    RESUMEPAGE -->|education[]| EDUCARD
+    RESUMEPAGE -->|skills| SKILLCARD
+    BLOG -->|publications[]| PUBCARD
+    
+    style RESUME fill:#10b981
+    style HOME fill:#3b82f6
+    style RESUMEPAGE fill:#8b5cf6
+    style BLOG fill:#f59e0b

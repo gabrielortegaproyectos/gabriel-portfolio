@@ -1,0 +1,89 @@
+---
+alt: "Component hierarchy and relationships"
+---
+graph TD
+    accTitle: Component Structure Diagram
+    accDescr: Hierarchical structure showing component relationships and dependencies
+    
+    ROOT[App.tsx<br/>Root Component]
+    
+    subgraph "Providers"
+        QC[QueryClientProvider]
+        TT[TooltipProvider]
+        TOAST[Toaster]
+        ROUTER[BrowserRouter]
+    end
+    
+    subgraph "Layout Layer"
+        LAYOUT[Layout]
+        NAV[Navbar]
+        FOOTER[Footer]
+    end
+    
+    subgraph "Page Components"
+        HOME[Home]
+        RESUME[Resume]
+        PORT[Portfolio]
+        BLOG[Blog]
+        NF[NotFound]
+    end
+    
+    subgraph "Custom Components"
+        BRAIN[BrainParticles]
+        STICKY[StickyScroll]
+        TIMELINE[CareerTimeline]
+        EXPCARD[ExperienceCard]
+        EDUCARD[EducationCard]
+        SKILLCARD[SkillsCard]
+        PUBCARD[PublicationsCard]
+        INTDEMO[InteractiveDemo]
+    end
+    
+    subgraph "shadcn/ui Library"
+        BUTTON[Button]
+        CARD[Card]
+        BENTO[BentoGrid]
+        ACCORDION[Accordion]
+        TABS[Tabs]
+        OTHERS[+30 more...]
+    end
+    
+    ROOT --> QC
+    ROOT --> TT
+    ROOT --> TOAST
+    ROOT --> ROUTER
+    ROUTER --> LAYOUT
+    
+    LAYOUT --> NAV
+    LAYOUT --> FOOTER
+    LAYOUT --> HOME
+    LAYOUT --> RESUME
+    LAYOUT --> PORT
+    LAYOUT --> BLOG
+    LAYOUT --> NF
+    
+    HOME --> BRAIN
+    HOME --> STICKY
+    HOME --> BUTTON
+    
+    RESUME --> TIMELINE
+    RESUME --> EXPCARD
+    RESUME --> EDUCARD
+    RESUME --> SKILLCARD
+    RESUME --> CARD
+    
+    PORT --> BENTO
+    PORT --> INTDEMO
+    
+    BLOG --> BENTO
+    BLOG --> PUBCARD
+    
+    TIMELINE --> CARD
+    EXPCARD --> CARD
+    EDUCARD --> CARD
+    SKILLCARD --> CARD
+    PUBCARD --> CARD
+    
+    style ROOT fill:#3b82f6
+    style LAYOUT fill:#8b5cf6
+    style BENTO fill:#f59e0b
