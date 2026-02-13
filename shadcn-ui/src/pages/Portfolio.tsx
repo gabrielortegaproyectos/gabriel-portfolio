@@ -1,50 +1,43 @@
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { InteractiveDemo } from "@/components/InteractiveDemo";
-import { BrainCircuit, Eye } from "lucide-react";
+import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
+import { InteractiveDemo } from '@/components/InteractiveDemo';
+import { BrainCircuit, Eye } from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
 
 export default function Portfolio() {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-8">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-zinc-100 mb-2">Portfolio</h2>
-        <p className="text-zinc-400">Interactive demonstrations and project showcases.</p>
+        <h2 className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">{t('portfolio.title')}</h2>
+        <p className="text-zinc-600 dark:text-zinc-400">{t('portfolio.subtitle')}</p>
       </div>
 
-      <BentoGrid className="max-w-6xl mx-auto">
-        {/* Main Interactive Demo */}
-        <BentoGridItem
-          className="md:col-span-2 md:row-span-2 min-h-[400px]"
-          header={<InteractiveDemo />}
-        />
+      <BentoGrid className="mx-auto max-w-6xl">
+        <BentoGridItem className="min-h-[400px] md:col-span-2 md:row-span-2" header={<InteractiveDemo />} />
 
-        {/* Project 1 Placeholder */}
         <BentoGridItem
-          className="md:col-span-1 md:row-span-1 p-6 flex flex-col justify-between"
+          className="flex flex-col justify-between p-6 md:col-span-1 md:row-span-1"
           header={
-            <div className="flex flex-col h-full">
+            <div className="flex h-full flex-col">
               <div className="mb-4">
-                <BrainCircuit className="w-8 h-8 text-blue-500 mb-2" />
-                <h3 className="text-lg font-bold text-zinc-100">Item Difficulty Prediction</h3>
+                <BrainCircuit className="mb-2 h-8 w-8 text-blue-500" />
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{t('portfolio.project1Title')}</h3>
               </div>
-              <p className="text-sm text-zinc-400">
-                Using LLMs and NLP to predict the difficulty of multiple-choice questions before testing.
-              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('portfolio.project1Description')}</p>
             </div>
           }
         />
 
-        {/* Project 2 Placeholder */}
         <BentoGridItem
-          className="md:col-span-1 md:row-span-1 p-6 flex flex-col justify-between"
+          className="flex flex-col justify-between p-6 md:col-span-1 md:row-span-1"
           header={
-            <div className="flex flex-col h-full">
+            <div className="flex h-full flex-col">
               <div className="mb-4">
-                <Eye className="w-8 h-8 text-violet-500 mb-2" />
-                <h3 className="text-lg font-bold text-zinc-100">Eye-Tracking Analysis</h3>
+                <Eye className="mb-2 h-8 w-8 text-violet-500" />
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{t('portfolio.project2Title')}</h3>
               </div>
-              <p className="text-sm text-zinc-400">
-                Experimental design and software for analyzing visual attention in assessment contexts.
-              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('portfolio.project2Description')}</p>
             </div>
           }
         />

@@ -1,4 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { useLanguage } from '@/context/language-context';
 
 const data = [
   { epoch: 1, accuracy: 0.65, loss: 0.8 },
@@ -12,20 +13,22 @@ const data = [
 ];
 
 export const InteractiveDemo = () => {
+  const { t } = useLanguage();
+
   return (
-    <div className="w-full h-full min-h-[200px] flex flex-col">
+    <div className="flex h-full min-h-[200px] w-full flex-col">
       <div className="mb-2">
-        <h4 className="text-sm font-semibold text-zinc-100">Model Training Metrics</h4>
-        <p className="text-xs text-zinc-400">Item Difficulty Prediction (Simulated)</p>
+        <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{t('cards.modelMetrics')}</h4>
+        <p className="text-xs text-zinc-600 dark:text-zinc-400">{t('cards.modelMetricsSubtitle')}</p>
       </div>
-      <div className="flex-grow w-full h-full">
+      <div className="h-full w-full flex-grow">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.4} />
             <XAxis dataKey="epoch" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip 
-              contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', color: '#fafafa' }}
+            <Tooltip
+              contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', color: '#fafafa' }}
               itemStyle={{ color: '#fafafa' }}
             />
             <Legend />

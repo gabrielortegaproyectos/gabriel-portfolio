@@ -1,6 +1,23 @@
 import { useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
-export const BrainParticles = () => {
+type BrainParticlesProps = {
+  className?: string;
+  particleCount?: number;
+  connectionDistance?: number;
+  interactive?: boolean;
+  particleColor?: string;
+  lineColor?: string;
+};
+
+export const BrainParticles = ({
+  className,
+  particleCount = 60,
+  connectionDistance = 100,
+  interactive = true,
+  particleColor = '#8b5cf6',
+  lineColor = '139, 92, 246',
+}: BrainParticlesProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -13,8 +30,6 @@ export const BrainParticles = () => {
     let height = canvas.height = canvas.offsetHeight;
 
     const particles: { x: number; y: number; vx: number; vy: number }[] = [];
-    const particleCount = 60;
-    const connectionDistance = 100;
     const mouseDistance = 150;
 
     const mouse = { x: -1000, y: -1000 };
@@ -47,7 +62,7 @@ export const BrainParticles = () => {
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouseDistance) {
+        if (interactive && dist < mouseDistance) {
             const forceDirectionX = dx / dist;
             const forceDirectionY = dy / dist;
             const force = (mouseDistance - dist) / mouseDistance;
@@ -60,7 +75,7 @@ export const BrainParticles = () => {
         // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#8b5cf6'; // Violet-500
+        ctx.fillStyle = particleColor;
         ctx.fill();
 
         // Draw connections
@@ -72,7 +87,7 @@ export const BrainParticles = () => {
 
           if (dist < connectionDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 92, 246, ${1 - dist / connectionDistance})`; // Violet with opacity
+            ctx.strokeStyle = `rgba(${lineColor}, ${1 - dist / connectionDistance})`;
             ctx.lineWidth = 1;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -114,16 +129,29 @@ export const BrainParticles = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    if (interactive) {
+      canvas.addEventListener('mousemove', handleMouseMove);
+      canvas.addEventListener('mouseleave', handleMouseLeave);
+    }
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      if (interactive) {
+        canvas.removeEventListener('mousemove', handleMouseMove);
+        canvas.removeEventListener('mouseleave', handleMouseLeave);
+      }
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [connectionDistance, interactive, lineColor, particleColor, particleCount]);
 
-  return <canvas ref={canvasRef} className="w-full h-full bg-transparent rounded-md cursor-crosshair" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className={cn(
+        'w-full h-full bg-transparent rounded-md',
+        interactive ? 'cursor-crosshair' : 'cursor-default',
+        className
+      )}
+    />
+  );
 };
