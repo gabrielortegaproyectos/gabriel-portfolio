@@ -58,7 +58,7 @@ export const Navbar = () => {
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 overflow-hidden rounded-md border border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900">
+            <div className="h-8 w-8 overflow-hidden rounded-md">
               <BrainParticles
                 className="h-full w-full"
                 particleCount={20}
